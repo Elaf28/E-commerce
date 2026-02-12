@@ -1,0 +1,18 @@
+/* start to navbar */
+.navbar {
+  background: #ffffff;
+}
+
+.nav-link {
+  color: #4a4a4a;
+}
+
+.nav-link:hover {
+  color: var(--main-color);
+}
+
+.cart-count{
+  font-weight: 600;
+}
+
+/* end to navbar */
