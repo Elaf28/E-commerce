@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", async (e) => {
       if (user.role === "admin") {
         window.location.href = "admin.html";
       } else {
-        window.location.href = "Home.html";
+        window.location.href = "../index.html";
       }
     } else {
       errorMsg.textContent = "Invalid email or password";

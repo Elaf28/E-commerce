@@ -13,8 +13,23 @@
         "email": "sara@test.com",
         "password": "123",
         "role": "customer"
+        },
+        {
+        "id": "924a",
+        "name": "youmna",
+        "email": "youmnaali@gmail.com",
+        "password":"youmna12345",
+        "role": "customer"
+        },
+        {
+        "id": "20b6",
+        "name": "mariam",
+        "email": "mariam_ali70@gmail.com",
+        "password": "mariam123456789",
+        "role": "customer"
         }
-    ],    "carts": [
+    ],
+    "carts":[
         {
         "id": 1,
         "userId": 2,

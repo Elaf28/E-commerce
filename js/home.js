@@ -148,7 +148,7 @@ function displayData(myData, sectionId){
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card product-card h-100 border-0 shadow-sm">
 
-                    <a href="productDetails.html?id=${myData[i].id}" class="text-decoration-none text-dark">
+                    <a href="/html/productDetails.html?id=${myData[i].id}" class="text-decoration-none text-dark">
                         <div class="img-container">
                             ${discountBadge}
                             <img src="${myData[i].thumbnail}" class="card-img-top ll">
