@@ -1,15 +1,10 @@
 const BASE_URL = "http://localhost:3000";
-
-// عناصر الفورم
 const registerForm = document.getElementById("registerForm");
-
-// عناصر الأخطاء لكل input
 const nameError = document.getElementById("nameError");
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError");
 
-// مسح جميع الأخطاء
 function clearErrors() {
   nameError.textContent = "";
   emailError.textContent = "";
@@ -27,8 +22,6 @@ registerForm.addEventListener("submit", async (e) => {
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
   let hasError = false;
-
-  // التحقق من الاسم
   if (!name) {
     nameError.textContent = "Name is required";
     hasError = true;
@@ -41,13 +34,11 @@ registerForm.addEventListener("submit", async (e) => {
     }
   }
 
-  // التحقق من الايميل
   if (!email) {
     emailError.textContent = "Email is required";
     hasError = true;
   }
 
-  // التحقق من الباسورد
   if (!password) {
     passwordError.textContent = "Password is required";
     hasError = true;
@@ -61,7 +52,6 @@ registerForm.addEventListener("submit", async (e) => {
     }
   }
 
-  // التحقق من تأكيد الباسورد
   if (!confirmPassword) {
     confirmPasswordError.textContent = "Confirm Password is required";
     hasError = true;
@@ -72,7 +62,6 @@ registerForm.addEventListener("submit", async (e) => {
 
   if (hasError) return;
 
-  // التحقق من الايميل في السيرفر
   try {
     const checkEmail = await fetch(`${BASE_URL}/users?email=${encodeURIComponent(email)}`);
     const emailData = await checkEmail.json();
@@ -81,7 +70,6 @@ registerForm.addEventListener("submit", async (e) => {
       return;
     }
 
-    // تسجيل المستخدم
     const response = await fetch(`${BASE_URL}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -90,7 +78,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     if (!response.ok) throw new Error("Error registering user");
 
-    alert("Account created successfully 🎉");
+    alert("Account created successfully ");
     window.location.href = "login.html";
 
   } catch (error) {

@@ -1,6 +1,3 @@
-:root{
-    --main-color:rgb(241, 91, 91);
-}
 .text-primary {
     color: white !important;
 }
@@ -12,7 +9,7 @@
 }
 
 
-/* start to sign up */
+/* sign up */
 body {
   font-family: "Exo", sans-serif;
   background: white; 
@@ -29,35 +26,6 @@ body {
 button {
   border-radius: 10px;
   font-weight: 600;
-}
-/* end to sign up */
-/* start to Footer */
-.footer {
-  background: black;
-}
-
-.footer-links li {
-  margin-bottom: 8px;
-}
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.footer-links a:hover {
-  color: white;
-}
-/* end to Footer */
-
-
-/* NAVBAR */
-.nav-link {
-  color: #4a4a4a;
-}
-.nav-link:hover {
-  color: var(--main-color);
 }
 
 /* CART ITEM */
@@ -118,12 +86,6 @@ button {
   border-radius: 8px;
   font-size: 14px;
 }
-
-
- /* end to cart */
-
-
- 
 
 
 

@@ -1,4 +1,4 @@
-/* start to navbar */
+/* navbar */
 .navbar {
   background: #ffffff;
   position: fixed;
@@ -8,16 +8,30 @@
   z-index: 1000;
 }
 
-.nav-link {
-  color: #4a4a4a;
+.navbar .nav-link {
+  font-weight: 500;
+  transition: 0.3s;
 }
 
-.nav-link:hover {
-  color: var(--main-color);
+.navbar .nav-link:hover {
+  color: #000;
 }
 
-.cart-count{
-  font-weight: 600;
+.logo {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 32px;
+  letter-spacing: 1px;
+}
+a{
+  text-decoration: none;
 }
 
-/* end to navbar */
+/* footer */
+footer a {
+  color: #fff;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  color: #ffc107 !important;
+}

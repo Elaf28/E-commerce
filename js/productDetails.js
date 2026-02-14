@@ -71,6 +71,11 @@ function displayProduct(productData) {
 
     setupQuantityControls(productData.stock);
     renderReviews(productData);
+
+    document.getElementById("addToCartBtn").onclick = function () {
+        addToCart(productData);
+    };
+
 }
 
 function setupQuantityControls(stock) {
@@ -182,3 +187,67 @@ window.onload = () => {
     const productId = getProductId();
     if (productId) fetchProduct(productId);
 };
+
+function addToCart(productData) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+        alert("Please login first!");
+        return;
+    }
+
+    const qty = parseInt(document.getElementById("qtyInput").value);
+
+    // Check if product exists
+    let checkRequest = new XMLHttpRequest();
+    checkRequest.open("GET",`http://localhost:3000/carts?userId=${user.id}&productId=${productData.id}`);
+    checkRequest.send();
+
+    checkRequest.onreadystatechange = function () {
+        if (checkRequest.readyState === 4 && checkRequest.status === 200) {
+            const existing = JSON.parse(checkRequest.responseText);
+
+            if (existing.length > 0) {
+                // update quantity
+                let updateRequest = new XMLHttpRequest();
+                updateRequest.open("PATCH",`http://localhost:3000/carts/${existing[0].id}`);
+                updateRequest.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+
+                updateRequest.send(
+                    JSON.stringify({
+                        quantity: existing[0].quantity + qty
+                    })
+                );
+                updateRequest.onreadystatechange = function () {
+                    if (updateRequest.readyState === 4) {
+                        updateCartCount();
+                    }
+                };
+
+            } else {
+                // add new item
+                let addRequest = new XMLHttpRequest();
+                addRequest.open("POST", "http://localhost:3000/carts");
+                addRequest.setRequestHeader(
+                    "Content-Type",
+                    "application/json;charset=UTF-8"
+                );
+
+                addRequest.send(JSON.stringify({
+                    userId: user.id,
+                    productId: productData.id,
+                    title: productData.title,
+                    price: productData.price,
+                    discountPercentage:product.discountPercentage,
+                    image: productData.thumbnail,
+                    quantity: qty
+                }));
+
+                addRequest.onreadystatechange = function () {
+                    if (addRequest.readyState === 4 && addRequest.status === 201) {
+                        updateCartCount();
+                    }
+                };
+            }
+        }
+    };
+}
