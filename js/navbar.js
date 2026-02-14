@@ -1,4 +1,4 @@
-// ===================== CART COUNT FROM LOCALSTORAGE =====================
+//  CART COUNT FROM LOCALSTORAGE 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 const cartCountElement = document.querySelector(".cart-count");
 
@@ -11,7 +11,7 @@ if (cartCountElement) {
   cartCountElement.textContent =`(${totalQty})`;
 }
 
-// ===================== OPTIONAL: CART COUNT FROM SERVER =====================
+//  OPTIONAL: CART COUNT FROM SERVER 
 function updateCartCount() {
   fetch("http://localhost:3000/carts")
     .then(res => res.json())
@@ -28,7 +28,7 @@ function updateCartCount() {
     .catch(err => console.error(err));
 }
 
-// ===================== NAVBAR LOGIC =====================
+//  NAVBAR LOGIC 
 const navLinks = document.getElementById("nav-links");
 
 // نجيب المستخدم الحالي
@@ -42,7 +42,7 @@ if (window.location.pathname.includes("/html/")) {
   basePath = "../";
 }
 
-// ===================== PROTECT ROUTES =====================
+//  PROTECT ROUTES 
 function protectRoute(e) {
   const user = getCurrentUser();
 
@@ -53,7 +53,7 @@ function protectRoute(e) {
   }
 }
 
-// ===================== UPDATE NAVBAR =====================
+//  UPDATE NAVBAR 
 function updateNavbar() {
   if (!navLinks) return;
 
@@ -106,7 +106,7 @@ function updateNavbar() {
   }
 }
 
-// ===================== APPLY PROTECTION =====================
+//  APPLY PROTECTION 
 document.addEventListener("DOMContentLoaded", () => {
 
   updateNavbar();
@@ -124,3 +124,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+

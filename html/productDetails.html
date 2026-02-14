@@ -12,35 +12,61 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-black fs-4" href="../index.html">
-            shopping
-            </a>
+   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+  <div class="container">
 
-            <div class="collapse navbar-collapse show">
-            <ul id="nav-links" class="navbar-nav ms-auto align-items-center gap-3">
-                <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
-            
-                <li class="nav-item">
-                <a class="nav-link" href="#">
-                    Categories 
-                </a>
-                </li>
-            
-                <li class="nav-item">
-                <a class="nav-link" href="cart_new.html">
-                    cart <i class="fa-solid fa-cart-shopping"></i> <span class="cart-count cart-link">(0)</span>
-                </a>
-                </li>
-                    <li class="nav-item"><a class="nav-link orders-link" href="ordered_page.html">My Orders</a></li>
-                <li class="nav-item">
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-black fs-4" href="../index.html">
+      shopping
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul id="nav-links"
+          class="navbar-nav ms-auto align-items-lg-center gap-lg-3 text-center text-lg-start mt-3 mt-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Products</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Categories</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="../html/cart.html">
+            cart 
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count badge bg-dark rounded-pill ms-1">(0)</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link orders-link" href="../html/ordered_page.html">
+            My Orders
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
 
     <div class="container " style="margin-top: 100px;">
         <div class="product-card p-4">

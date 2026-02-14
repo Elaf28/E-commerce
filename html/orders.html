@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Orders | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-black fs-4" href="../index.html">
+      Shopping
+    </a>
+
+    <!-- Toggler Button -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3 text-center text-lg-start">
+
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../html/products.html">Products</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cart-link position-relative" href="../html/cart.html">
+            Cart <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count badge bg-dark rounded-pill ms-1">0</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link orders-link" href="../html/ordered_page.html">
+            My Orders
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h3 class="fw-bold text-primary mb-4">Orders Management</h3>
+  <div id="ordersContainer"></div>
+</div>
+
+<script>
+const container = document.getElementById("ordersContainer");
+
+fetch("http://localhost:3000/orders")
+  .then(res => res.json())
+  .then(data => {
+    container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+      container.innerHTML = "<p>No orders found</p>";
+      return;
+    }
+
+    data.forEach(order => {
+      let productList = order.products || order.items || [];
+      let total = 0;
+
+      const card = document.createElement("div");
+      card.className = "border rounded p-4 mb-4 shadow-sm order-card";
+      card.id = `order-${order.id}`;
+
+      // المنتجات
+      const productsDiv = document.createElement("div");
+      productList.forEach(p => {
+        const qty = p.quantity || p.qty || 1;
+        const price = p.price || p.pricePerItem || 0;
+        total += price * qty;
+
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "d-flex justify-content-between";
+        itemDiv.innerHTML = `<span>${p.title || p.name} x ${qty}</span><span>$${(price * qty).toFixed(2)}</span>`;
+        productsDiv.appendChild(itemDiv);
+      });
+
+      // الهيدر + البادج
+      const headerDiv = document.createElement("div");
+      headerDiv.className = "d-flex justify-content-between align-items-center mb-2";
+
+      const strong = document.createElement("strong");
+      strong.textContent = `Order #${order.id}`;
+
+      const badge = document.createElement("span");
+      badge.textContent = order.status || "PENDING";
+
+      headerDiv.appendChild(strong);
+      headerDiv.appendChild(badge);
+
+      // الإجمالي
+      const totalDiv = document.createElement("div");
+      totalDiv.className = "d-flex justify-content-between fw-bold mt-2";
+      totalDiv.innerHTML = `<span>Total:</span><span>$${total.toFixed(2)}</span>`;
+
+      // الأزرار
+      const buttonsDiv = document.createElement("div");
+      buttonsDiv.className = "mt-3 d-flex gap-2 order-buttons";
+
+      const confirmBtn = document.createElement("button");
+      confirmBtn.type = "button";
+      confirmBtn.className = "btn btn-success btn-sm";
+      confirmBtn.textContent = "Confirm";
+
+      const rejectBtn = document.createElement("button");
+      rejectBtn.type = "button";
+      rejectBtn.className = "btn btn-danger btn-sm";
+      rejectBtn.textContent = "Reject";
+
+      buttonsDiv.appendChild(confirmBtn);
+      buttonsDiv.appendChild(rejectBtn);
+
+      // ─── التحكم في الظهور حسب الحالة ───
+      const statusUpper = (order.status || "PENDING").toUpperCase();
+
+      if (statusUpper === "COMPLETED") {
+        badge.className = "badge bg-success status-badge";
+        badge.textContent = "COMPLETED";
+        buttonsDiv.style.display = "none";
+      } 
+      else if (statusUpper === "REJECTED") {
+        badge.className = "badge bg-danger status-badge";
+        badge.textContent = "REJECTED";
+        buttonsDiv.style.display = "none";
+      } 
+      else {
+        // PENDING أو أي حالة تانية
+        badge.className = "badge bg-warning status-badge";
+        badge.textContent = "PENDING";
+
+        confirmBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          updateOrderStatus(order.id, "COMPLETED", badge, buttonsDiv, card);
+        });
+
+        rejectBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          updateOrderStatus(order.id, "REJECTED", badge, buttonsDiv, card);
+        });
+      }
+
+      // تجميع الكارد مرة واحدة بس
+      card.appendChild(headerDiv);
+      card.appendChild(productsDiv);
+      card.appendChild(document.createElement("hr"));
+      card.appendChild(totalDiv);
+      card.appendChild(buttonsDiv);
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error("Error fetching orders:", err);
+    container.innerHTML = "<p>Error loading orders</p>";
+  });
+
+function updateOrderStatus(id, status, badge, buttonsDiv, card) {
+  fetch(`http://localhost:3000/orders/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  })
+  .then(() => {
+    badge.textContent = status;
+    badge.className = status === "COMPLETED" 
+      ? "badge bg-success status-badge" 
+      : "badge bg-danger status-badge";
+
+    if (buttonsDiv) {
+      buttonsDiv.style.display = "none";
+    }
+  })
+  .catch(err => {
+    console.error("Update failed:", err);
+    alert("فشل تحديث الحالة");
+  });
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
