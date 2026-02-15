@@ -167,9 +167,7 @@ document.getElementById("saveBtn").addEventListener("click", function (e) {
     let stockValue = stock.value.trim();
     let imagesValue = imagesInput.value.trim();
 
-    // clear errors
-    document.querySelectorAll(".error-text")
-        .forEach(e => e.textContent = "");
+    document.querySelectorAll(".error-text").forEach(e => e.textContent = "");
 
     let hasError = false;
 
