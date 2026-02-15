@@ -17,6 +17,20 @@ function calcNewPrice(price, discount = 0) {
     return (price * (1 - discount / 100)).toFixed(2);
 }
 
+// ---------- hide errors on typing ----------
+function clearErrorOnInput(input, errorId) {
+    input.addEventListener("input", () => {
+        document.getElementById(errorId).textContent = "";
+    });
+}
+
+clearErrorOnInput(title, "titleError");
+clearErrorOnInput(description, "descriptionError");
+clearErrorOnInput(price, "priceError");
+clearErrorOnInput(discount, "discountError");
+clearErrorOnInput(stock, "stockError");
+clearErrorOnInput(imagesInput, "imagesError");
+
 //fetch Products
 function fetchProducts() {
     let request = new XMLHttpRequest();
@@ -85,11 +99,10 @@ searchInput.addEventListener("input", function () {
     displayProducts(filtered);
 });
 
-//delete 
+//delete
 function deleteProduct(id) {
     Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Delete"
@@ -98,7 +111,6 @@ function deleteProduct(id) {
             let request = new XMLHttpRequest();
             request.open("DELETE", `http://localhost:3000/products/${id}`);
             request.send();
-
             request.onload = fetchProducts;
         }
     });
@@ -113,6 +125,7 @@ function resetForm() {
     discount.value = "";
     stock.value = "";
     imagesInput.value = "";
+    document.querySelectorAll(".error-text").forEach(e => e.textContent = "");
 }
 
 //open modal
@@ -130,6 +143,7 @@ function editProduct(id) {
     let product = productList.find(p => p.id === id);
     document.querySelector(".modal-title").innerText = "Edit Product";
     document.getElementById("saveBtn").innerText = "Update Product";
+
     title.value = product.title;
     description.value = product.description;
     category.value = product.category;
@@ -137,13 +151,14 @@ function editProduct(id) {
     discount.value = product.discountPercentage;
     stock.value = product.stock;
     imagesInput.value = product.images.join(",");
+
     modal.show();
 }
 
-
-//save/update 
+//save/update
 document.getElementById("saveBtn").addEventListener("click", function (e) {
     e.preventDefault();
+
     let titleValue = title.value.trim();
     let descriptionValue = description.value.trim();
     let categoryValue = category.value;
@@ -151,16 +166,61 @@ document.getElementById("saveBtn").addEventListener("click", function (e) {
     let discountValue = discount.value.trim();
     let stockValue = stock.value.trim();
     let imagesValue = imagesInput.value.trim();
-    if (!titleValue || !descriptionValue || !categoryValue ||
-        !priceValue || !discountValue || !stockValue || !imagesValue) {
-        Swal.fire({
-            icon: "error",
-            text: "Please fill all fields!"
-        });
+
+    document.querySelectorAll(".error-text").forEach(e => e.textContent = "");
+
+    let hasError = false;
+
+    if (!titleValue) {
+        document.getElementById("titleError").textContent = "Title required";
+        hasError = true;
+    }
+
+    if (!descriptionValue) {
+        document.getElementById("descriptionError").textContent = "Description required";
+        hasError = true;
+    }
+
+    if (!priceValue || priceValue < 0) {
+        document.getElementById("priceError").textContent = "Price must be > 0";
+        hasError = true;
+    }
+
+    if (!discountValue || discountValue < 0 || discountValue > 100) {
+        document.getElementById("discountError").textContent = "Discount 0 - 100";
+        hasError = true;
+    }
+
+    if (!stockValue || stockValue < 0) {
+        document.getElementById("stockError").textContent = "Stock required";
+        hasError = true;
+    }
+
+    if (!imagesValue) {
+        document.getElementById("imagesError").textContent = "Images required";
+        hasError = true;
+    }
+
+    let exists = false;
+    for (let i = 0; i < productList.length; i++) {
+        if (
+            productList[i].title.toLowerCase() === titleValue.toLowerCase() &&
+            productList[i].id !== currentEditId
+        ) {
+            exists = true;
+            break;
+        }
+    }
+
+    if (exists) {
+        document.getElementById("titleError").textContent ="Product already exists";
         return;
     }
 
+    if (hasError) return;
+
     let images = imagesValue.split(",").map(i => i.trim());
+
     let product = {
         title: titleValue,
         description: descriptionValue,

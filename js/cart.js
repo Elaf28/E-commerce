@@ -67,10 +67,10 @@ async function loadCart() {
             <div class="flex-grow-1">
             <h6>${item.title}</h6>
             <p>
-                ${priceAfterDiscount.toFixed(2)} LE x ${item.quantity}
+                $ ${priceAfterDiscount.toFixed(2)} x ${item.quantity}
                 ${
                 discount > 0
-                    ? `<span class="text-success">(Saved ${discount.toFixed(2)} LE each)</span>`
+                    ? `<span class="text-success">(Saved $ ${discount.toFixed(2)} each)</span>`
                     : ""
                 }
             </p>
@@ -109,10 +109,10 @@ function renderEmptyCart() {
         </div>
     `;
 
-    subtotalEl.textContent = "0 LE";
-    totalEl.textContent = "0 LE";
+    subtotalEl.textContent = "$ 0";
+    totalEl.textContent = "$ 0";
     itemsCountEl.textContent = "0";
-    savingsEl.textContent = "0 LE";
+    savingsEl.textContent = "$ 0";
 
     updateCartCount();
 }

@@ -34,6 +34,48 @@
       "email": "hager_70@gmail.com",
       "password": "Youmna12345@",
       "role": "customer"
+    },
+    {
+      "name": "Elaf",
+      "email": "elaf6369@gmail.com",
+      "password": "Elaf123*",
+      "role": "customer",
+      "id": "VeJgPkD"
+    },
+    {
+      "name": "Afnan",
+      "email": "afnan6369@gmail.com",
+      "password": "Afnan123*",
+      "role": "customer",
+      "id": "EFFZt0I"
+    },
+    {
+      "name": "elaf",
+      "email": "elaf63699@gmail.com",
+      "password": "Elaf123*",
+      "role": "customer",
+      "id": "frSg0hq"
+    },
+    {
+      "name": "elaf",
+      "email": "elaf636999@gmail.com",
+      "password": "Elaf123*",
+      "role": "customer",
+      "id": "dqMxrtl"
+    },
+    {
+      "name": "elaf",
+      "email": "elaf6369999@gmail.com",
+      "password": "Elaf123*",
+      "role": "customer",
+      "id": "UJdsxza"
+    },
+    {
+      "name": "elaf",
+      "email": "elaf63699999@gmail.com",
+      "password": "Elaf123*",
+      "role": "customer",
+      "id": "ol35PIs"
     }
   ],
   "carts": [
@@ -309,6 +351,74 @@
       "total": 57.96,
       "status": "Pending",
       "date": "2026-02-13"
+    },
+    {
+      "userId": "2",
+      "customer": "sara Ahmed",
+      "email": "sara@test.com",
+      "address": "fayoum",
+      "phone": "01012345678",
+      "paymentMethod": "Cash",
+      "products": [
+        {
+          "userId": "2",
+          "productId": 9,
+          "title": "Annibale Colombo Sofa",
+          "price": 2499.99,
+          "discountPercentage": 14.4,
+          "image": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp",
+          "quantity": 1,
+          "id": "bjcIxWi"
+        },
+        {
+          "userId": "2",
+          "productId": 35,
+          "title": "Huawei Matebook X Pro",
+          "price": 1399.99,
+          "discountPercentage": 9.38,
+          "image": "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/thumbnail.webp",
+          "quantity": 1,
+          "id": "LOBjifu"
+        },
+        {
+          "userId": "2",
+          "productId": 3,
+          "title": "Red Nail Polish",
+          "price": 8.99,
+          "discountPercentage": 11.44,
+          "image": "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/thumbnail.webp",
+          "quantity": 2,
+          "id": "_rluSVX"
+        }
+      ],
+      "total": 3917.9599999999996,
+      "status": "COMPLETED",
+      "date": "2026-02-15",
+      "id": "0ffOOd9"
+    },
+    {
+      "userId": "dqMxrtl",
+      "customer": "Elaf Ahmed",
+      "email": "elaf636999@gmail.com",
+      "address": "fayoum",
+      "phone": "01012345678",
+      "paymentMethod": "Cash",
+      "products": [
+        {
+          "userId": "dqMxrtl",
+          "productId": 59,
+          "title": "Black Women's Gown",
+          "price": 129.99,
+          "discountPercentage": 10.48,
+          "image": "https://cdn.dummyjson.com/product-images/womens-dresses/black-women's-gown/thumbnail.webp",
+          "quantity": 1,
+          "id": "2jLJW-c"
+        }
+      ],
+      "total": 129.99,
+      "status": "COMPLETED",
+      "date": "2026-02-15",
+      "id": "MEfTKgh"
     }
   ],
   "categories": [
@@ -328,9 +438,9 @@
       "image": "resources/furniture.jpg"
     },
     {
-      "id": 4,
       "name": "groceries",
-      "image": "resources/groceries.jpg"
+      "image": "resources/groceries.jpg",
+      "id": 4
     },
     {
       "id": 5,
@@ -435,7 +545,7 @@
       "category": "beauty",
       "price": 9.99,
       "discountPercentage": 10.48,
-      "stock": 5,
+      "stock": 3,
       "images": [
         "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
       ],

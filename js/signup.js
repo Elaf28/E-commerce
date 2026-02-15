@@ -78,8 +78,9 @@ registerForm.addEventListener("submit", async (e) => {
 
     if (!response.ok) throw new Error("Error registering user");
 
-    alert("Account created successfully ");
-    window.location.href = "login.html";
+    // alert("Account created successfully ");
+    window.location.href = "./login.html";
+
 
   } catch (error) {
     console.error(error);
