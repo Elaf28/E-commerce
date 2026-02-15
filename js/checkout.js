@@ -49,6 +49,7 @@ function renderCart(){
     totalPriceEl.textContent = `$${total.toFixed(2)}`;
 }
 
+
 // استدعاء الدالة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", fetchCart);
 
@@ -89,7 +90,7 @@ document.querySelectorAll("input[name='payment']").forEach(r=>{
 // التعامل مع إرسال الطلب
 document.getElementById("checkoutForm").addEventListener("submit", async function(e){
     e.preventDefault();
-
+    
     // جمع البيانات
    const orderData = {
   customer: document.getElementById("firstName").value + " " +
@@ -124,20 +125,35 @@ document.getElementById("checkoutForm").addEventListener("submit", async functio
     }
 
     // ارسال الطلب للJSON Server
-    try {
-        const res = await fetch("http://localhost:3000/orders", {
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify(orderData)
-        });
-        if(res.ok){
-            window.location.href = "success.html"; // صفحة نجاح الطلب
-        }
-    } catch(err){
-        console.error(err);
-        alert("Failed to place order!");
+   try {
+  const res = await fetch("http://localhost:3000/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData)
+  });
+
+  if (res.ok) {
+    // امسح كل عناصر الكارت
+    for (let item of cartItems) {
+      await fetch(`http://localhost:3000/carts/${item.id}`, {
+        method: "DELETE"
+      });
     }
+
+    window.location.href = "success.html";
+  }
+
+} catch (err) {
+  console.error(err);
+  alert("Failed to place order!");
+}
+
 });
+
+
+
+
+
 
 
 

@@ -237,7 +237,7 @@ function addToCart(productData) {
                     productId: productData.id,
                     title: productData.title,
                     price: productData.price,
-                    discountPercentage:product.discountPercentage,
+                    discountPercentage:productData.discountPercentage,
                     image: productData.thumbnail,
                     quantity: qty
                 }));
