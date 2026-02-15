@@ -435,7 +435,7 @@
       "category": "beauty",
       "price": 9.99,
       "discountPercentage": 10.48,
-      "stock": 5,
+      "stock": 3,
       "images": [
         "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
       ],
@@ -5748,6 +5748,19 @@
         "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/3.webp"
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp"
+    },
+    {
+      "title": "k",
+      "description": "k",
+      "category": "fragrances",
+      "price": 55,
+      "discountPercentage": 5,
+      "stock": 6,
+      "images": [
+        "klklkl"
+      ],
+      "thumbnail": "klklkl",
+      "id": 88
     }
   ]
 }
